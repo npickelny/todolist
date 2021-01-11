@@ -1,0 +1,50 @@
+<h1>Listing Todos</h1>
+<header class="header">
+    <h1>todos</h1>
+    <input class="new-todo" placeholder="What needs to be done?" autofocus="" />
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Completed</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for todo <- @todos do %>
+    <tr>
+      <td><%= todo.title %></td>
+      <td><%= todo.description %></td>
+      <td><%= todo.completed %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.todo_path(@conn, :show, todo) %></span>
+        <span><%= link "Edit", to: Routes.todo_path(@conn, :edit, todo) %></span>
+        <span><%= link "Delete", to: Routes.todo_path(@conn, :delete, todo), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+
+<%= for todo <- @todos do %>
+
+    <tr class="view">
+    <td>
+        <input class="toggle" type="checkbox">
+    </td>
+    <td>
+        <label><%= todo.title %></label>
+    </td>
+    <td>
+            <%= link "", class: "destroy",
+              to: Routes.todo_path(@conn, :delete, todo), method: :delete,
+              data: [confirm: "Are you sure?"] %>
+    </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Todo", to: Routes.todo_path(@conn, :new) %></span>

@@ -17,6 +17,7 @@ defmodule ToDoListWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/todos", TodoController
   end
 
   # Other scopes may use custom stacks.
