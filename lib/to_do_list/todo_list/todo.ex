@@ -4,7 +4,7 @@ defmodule ToDoList.TodoList.Todo do
 
   schema "todos" do
     field :completed, :boolean, default: false
-    field :description, :string
+    field :description, :string, default: "mock"
     field :title, :string
 
     timestamps()
@@ -14,6 +14,6 @@ defmodule ToDoList.TodoList.Todo do
   def changeset(todo, attrs) do
     todo
     |> cast(attrs, [:title, :description, :completed])
-    |> validate_required([:title, :description, :completed])
+    |> validate_required([:title])
   end
 end

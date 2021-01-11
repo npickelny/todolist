@@ -6,7 +6,8 @@ defmodule ToDoListWeb.TodoController do
 
   def index(conn, _params) do
     todos = TodoList.list_todos()
-    render(conn, "index.html", todos: todos)
+    changeset = TodoList.change_todo(%Todo{})
+    render(conn, "index.html", todos: todos, changeset: changeset)
   end
 
   def new(conn, _params) do
@@ -15,13 +16,15 @@ defmodule ToDoListWeb.TodoController do
   end
 
   def create(conn, %{"todo" => todo_params}) do
+    IO.puts "Creating"
     case TodoList.create_todo(todo_params) do
       {:ok, todo} ->
         conn
         |> put_flash(:info, "Todo created successfully.")
-        |> redirect(to: Routes.todo_path(conn, :show, todo))
+        |> redirect(to: Routes.todo_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.puts "Hello World"
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -59,4 +62,20 @@ defmodule ToDoListWeb.TodoController do
     |> put_flash(:info, "Todo deleted successfully.")
     |> redirect(to: Routes.todo_path(conn, :index))
   end
+
+  def toggle_status(todo) do
+    IO.puts todo.completed
+    IO.puts '00000000000'
+    case todo.completed do
+      true -> false
+      false -> true
+    end
+  end
+
+  def toggle(conn, %{"id" => id}) do
+    todo = TodoList.get_todo!(id)
+    TodoList.update_todo(todo, %{completed: toggle_status(todo)})
+    redirect(conn, to: Routes.todo_path(conn, :index))
+  end
+
 end

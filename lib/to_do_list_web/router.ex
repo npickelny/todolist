@@ -18,6 +18,7 @@ defmodule ToDoListWeb.Router do
 
     get "/", PageController, :index
     resources "/todos", TodoController
+    get "/todos/toggle/:id", TodoController, :toggle
   end
 
   # Other scopes may use custom stacks.
