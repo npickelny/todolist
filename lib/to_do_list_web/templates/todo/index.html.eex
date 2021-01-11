@@ -6,7 +6,7 @@
 <table>
   <thead>
     <tr>
-      <th></th>
+      <th>Action</th>
       <th>Title</th>
       <th></th>
     </tr>
@@ -17,7 +17,7 @@
 <%= for todo <- @todos do %>
     <tr class="view">
     <td>
-        <a class="button-<%= completed(todo) %>" href="<%= Routes.todo_path(@conn, :toggle, todo.id) %>" class="toggle">
+        <a class="button-<%= completed(todo) %>" href="<%= Routes.todo_path(@conn, :toggle, todo.id) %>">
             Completed
         </a>
     </td>
