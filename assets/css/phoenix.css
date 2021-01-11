@@ -99,3 +99,12 @@ header nav a {
     margin: 2rem 1rem;
   }
 }
+
+.completed {
+  text-decoration: line-through;
+  font-weight: 300;
+}
+
+.button-completed {
+  display: none;
+}

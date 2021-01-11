@@ -1,6 +1,5 @@
 <h1>Listing Todos</h1>
 <header class="header">
-    <h1>todos</h1>
     <%= render "form.html", Map.put(assigns, :action, Routes.todo_path(@conn, :create)) %>
 </header>
 
@@ -9,7 +8,6 @@
     <tr>
       <th></th>
       <th>Title</th>
-      <th>Completed</th>
       <th></th>
     </tr>
   </thead>
@@ -19,21 +17,18 @@
 <%= for todo <- @todos do %>
     <tr class="view">
     <td>
-        <a href="<%= Routes.todo_path(@conn, :toggle, todo.id) %>" class="toggle">
+        <a class="button-<%= completed(todo) %>" href="<%= Routes.todo_path(@conn, :toggle, todo.id) %>" class="toggle">
             Completed
         </a>
     </td>
     <td>
-        <label><%= todo.title %></label>
+        <label class="<%= completed(todo) %>" ><%= todo.title %></label>
     </td>
     <td>
-        <label><%= todo.completed %></label>
-    </td>
-    <td>
-        <%= link "la", class: "destroy",
+        <%= link "delete", class: "destroy",
           to: Routes.todo_path(@conn, :delete, todo),
           method: :delete,
-          data: [confirm: "Are you sure?"] %>
+          data: [confirm: "Sure?"] %>
     </td>
     </tr>
 <% end %>
